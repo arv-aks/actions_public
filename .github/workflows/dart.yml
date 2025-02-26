@@ -8,7 +8,7 @@ on:
       - main
       - master
       - develop
-name: "Build & Release"
+name: "Release on github and send email"
 jobs:
   build:
     name: Build & Release
@@ -33,14 +33,7 @@ jobs:
             --header 'Authorization: Basic YXBpOjM1NGRkNjZhNjllN2UzZDVjNDc0NzE5NWRiNTVhM2RkLWFjM2Q1Zjc0LWQ3ODEwZWU3' \
             --form 'from="info@salaryontime.com"' \
             --form 'to="arvind@salaryontime.com"' \
+            --form 'to="bhavish@salaryontime.com"' \
             --form "text=Latest APK URL: $RELEASE_URL" \
             --form 'subject="Latest Build HRMS app"'
 
-
-
-
-
-
-
-# push to master, main, develop
-# pull request on main master
