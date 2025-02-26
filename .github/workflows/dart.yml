@@ -2,19 +2,24 @@ on:
   pull_request:
     branches:
       - main
-
+      - master
   push:
     branches:
       - main
-
+      - master
+      - develop
 name: "Build & Release"
 jobs:
   build:
     name: Build & Release
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
     steps:
       - name: Clone repository
         uses: actions/checkout@v4
+      - uses: actions/setup-java@v3
+        with: 
+          distribution: 'zulu'
+          java-version: '17'
 
       - name: Push to release
         uses: ncipollo/release-action@v1
