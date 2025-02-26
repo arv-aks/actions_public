@@ -29,6 +29,16 @@ jobs:
           token: ${{ secrets.PUBLIC_REPO   }}
 
 
+      - name: Send Email
+        run: | 
+          curl --location 'https://api.mailgun.net/v3/salaryontime.com/messages' \
+            --header 'Authorization: Basic YXBpOjM1NGRkNjZhNjllN2UzZDVjNDc0NzE5NWRiNTVhM2RkLWFjM2Q1Zjc0LWQ3ODEwZWU3' \
+            --form 'from="info@salaryontime.com"' \
+            --form 'to="arvind@salaryontime.com"' \
+            --form 'text="Test"' \
+            --form 'subject="Test"'
+
+
 
 
 
