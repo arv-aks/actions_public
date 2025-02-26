@@ -16,10 +16,6 @@ jobs:
     steps:
       - name: Clone repository
         uses: actions/checkout@v4
-      - uses: actions/setup-java@v3
-        with: 
-          distribution: 'zulu'
-          java-version: '17'
 
       - name: Push to release
         uses: ncipollo/release-action@v1
@@ -28,15 +24,20 @@ jobs:
           tag: v1.0.${{github.run_number}}
           token: ${{ secrets.PUBLIC_REPO   }}
 
+      - name: Print Release APK URL
+        run: |
+          RELEASE_URL="https://github.com/${{ github.repository }}/releases/latest"
+          echo "APK Released: $RELEASE_URL"
 
-      - name: Send Email
-        run: | 
-          curl --location 'https://api.mailgun.net/v3/salaryontime.com/messages' \
-            --header 'Authorization: Basic YXBpOjM1NGRkNjZhNjllN2UzZDVjNDc0NzE5NWRiNTVhM2RkLWFjM2Q1Zjc0LWQ3ODEwZWU3' \
-            --form 'from="info@salaryontime.com"' \
-            --form 'to="arvind@salaryontime.com"' \
-            --form 'text="Test"' \
-            --form 'subject="Test"'
+
+      # - name: Send Email
+      #   run: | 
+      #     curl --location 'https://api.mailgun.net/v3/salaryontime.com/messages' \
+      #       --header 'Authorization: Basic YXBpOjM1NGRkNjZhNjllN2UzZDVjNDc0NzE5NWRiNTVhM2RkLWFjM2Q1Zjc0LWQ3ODEwZWU3' \
+      #       --form 'from="info@salaryontime.com"' \
+      #       --form 'to="arvind@salaryontime.com"' \
+      #       --form 'text="Test"' \
+      #       --form 'subject="Test"'
 
 
 
