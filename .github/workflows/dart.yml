@@ -33,7 +33,7 @@ jobs:
             --header 'Authorization: Basic YXBpOjM1NGRkNjZhNjllN2UzZDVjNDc0NzE5NWRiNTVhM2RkLWFjM2Q1Zjc0LWQ3ODEwZWU3' \
             --form 'from="info@salaryontime.com"' \
             --form 'to="arvind@salaryontime.com"' \
-            --form 'text="Url: $RELEASE_URL"' \
+            --form "text=Latest APK URL: $RELEASE_URL" \
             --form 'subject="Latest Build HRMS app"'
 
 
