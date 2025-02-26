@@ -26,7 +26,7 @@ jobs:
         with: 
           artifacts: "app-release.apk"
           tag: v1.0.${{github.run_number}}
-          token: ${{ secrets.TOKEN  }}
+          token: ${{ secrets.FOR_PUBLIC_REPO   }}
 
 
 
