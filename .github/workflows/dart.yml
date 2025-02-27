@@ -17,6 +17,10 @@ jobs:
       - name: Clone repository
         uses: actions/checkout@v4
 
+      - name: Unzip release.zip file
+        run: |
+          unzip -o release.zip
+
       - name: Push to release
         uses: ncipollo/release-action@v1
         with: 
