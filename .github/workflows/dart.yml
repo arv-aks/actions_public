@@ -19,7 +19,7 @@ jobs:
 
       - name: Unzip release.zip file
         run: |
-          unzip -o release.zip
+          tar -xzvf release.tar.gz
 
       - name: Push to release
         uses: ncipollo/release-action@v1
