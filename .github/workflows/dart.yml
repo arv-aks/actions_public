@@ -2,12 +2,11 @@ on:
   pull_request:
     branches:
       - main
-      - master
+
   push:
     branches:
       - main
-      - master
-      - develop
+
 name: "Release on github and send email"
 jobs:
   build:
@@ -19,15 +18,22 @@ jobs:
 
       - name: Unzip release.zip file
         run: |
-          tar -xzvf release.tar.gz
+          tar -xvf app-release.tgz 
+
+      - name: Defining App Version
+        run: echo "APP_VERSION=v1.0.${{ github.run_number }}" >> $GITHUB_ENV
 
       - name: Push to release
         uses: ncipollo/release-action@v1
         with: 
           artifacts: "app-release.apk"
-          tag: v1.0.${{github.run_number}}
+          tag: ${{ env.APP_VERSION }}
           token: ${{ secrets.PUBLIC_REPO   }}
 
+      - name: Get download url of apk and send email
+        run: |  
+          APK_DOWNLOAD_URL = "https://github.com/${{ github.repository }}/releases/download/${{ env.APP_VERSION }}/app-release.apk
+          echo "apk download url: $APK_DOWNLOAD_URL"
 
       # - name: Get Release apk and Send Email
       #   run: | 
