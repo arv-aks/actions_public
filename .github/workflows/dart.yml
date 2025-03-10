@@ -64,6 +64,8 @@ jobs:
 
       - name: Commit and Push JSON File
         run: |
+         git config --global user.email "aks.arvind01@gmail.com"
+         git config --global user.name "arv-aks"
          git add custom.json
          git commit -m "Updated custom.json file"
          git push
