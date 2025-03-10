@@ -65,5 +65,5 @@ jobs:
       - name: Commit and Push JSON File
         run: |
          git add custom.json
-         git commit -m "Add custom.json file with APK version"
+         git commit -m "Updated custom.json file"
          git push
