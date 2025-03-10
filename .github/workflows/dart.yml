@@ -36,7 +36,11 @@ jobs:
             exit 1
           fi
           
-          APK_VERSION=$(aapt dump badging app-release.apk | grep versionName | awk -F"'" '{print $4}')
+          # Print aapt output for debugging
+          aapt dump badging app-release.apk | grep versionName
+          
+          # Extract correct version name
+          APK_VERSION=$(aapt dump badging app-release.apk | awk -F"versionName='" '{print $2}' | awk -F"'" '{print $1}')
           
           if [[ -z "$APK_VERSION" ]]; then
             echo "Error: Failed to extract APK version!"
@@ -45,6 +49,7 @@ jobs:
           
           echo "APK_VERSION=$APK_VERSION" >> $GITHUB_ENV
           echo "Extracted APK Version: $APK_VERSION"
+
 
       - name: Push to release
         uses: ncipollo/release-action@v1
