@@ -24,7 +24,7 @@ jobs:
           tar -xvf app-release.tgz 
 
       - name: Defining App Version
-        run: echo "APP_VERSION=v1.0.${{ github.run_number }}" >> $GITHUB_ENV
+        run: echo "APP_VERSION=1.0.${{ github.run_number }}" >> $GITHUB_ENV
 
       - name: Push to release
         uses: ncipollo/release-action@v1
