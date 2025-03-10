@@ -7,6 +7,9 @@ on:
     branches:
       - main
 
+permissions:
+  contents: write
+
 name: "Release on github and send email"
 jobs:
   build:
@@ -34,6 +37,20 @@ jobs:
         run: |  
           APK_DOWNLOAD_URL = "https://github.com/${{ github.repository }}/releases/download/${{ env.APP_VERSION }}/app-release.apk
           echo "apk download url: $APK_DOWNLOAD_URL"
+
+      - name: Create Custom JSON File
+        run: |
+          echo '{
+            "version": "1.0.0",
+            "description": "This is a custom JSON file created in GitHub Actions",
+            "author": "Your Name"
+          }' > custom.json
+
+      - name: Commit and Push JSON File
+        run: |
+         git add custom.json
+         git commit -m "Add custom.json file"
+         git push
 
       # - name: Get Release apk and Send Email
       #   run: | 
