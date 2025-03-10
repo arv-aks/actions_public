@@ -36,9 +36,7 @@ jobs:
       - name: Create Custom JSON File
         run: |
           echo '{
-            "version": "1.0.0",
-            "description": "This is a custom JSON file created in GitHub Actions",
-            "author": "Your Name"
+            "version": "${{ env.APP_VERSION }}"
           }' > custom.json
 
       - name: Commit and Push JSON File
