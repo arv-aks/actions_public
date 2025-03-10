@@ -33,11 +33,6 @@ jobs:
           tag: ${{ env.APP_VERSION }}
           token: ${{ secrets.PUBLIC_REPO   }}
 
-      - name: Get download url of apk and send email
-        run: |  
-          APK_DOWNLOAD_URL = "https://github.com/${{ github.repository }}/releases/download/${{ env.APP_VERSION }}/app-release.apk
-          echo "apk download url: $APK_DOWNLOAD_URL"
-
       - name: Create Custom JSON File
         run: |
           echo '{
