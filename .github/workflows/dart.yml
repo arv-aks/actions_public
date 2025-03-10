@@ -35,8 +35,10 @@ jobs:
 
       - name: Create Custom JSON File
         run: |
+         RELEASE_URL="https://github.com/${{ github.repository }}/releases/download/${{ env.APP_VERSION }}/app-release.apk"
           echo '{
-            "version": "${{ env.APP_VERSION }}"
+            "version": "${{ env.APP_VERSION }}",
+            "url": "${{ RELEASE_URL }}"
           }' > custom.json
 
       - name: Commit and Push JSON File
