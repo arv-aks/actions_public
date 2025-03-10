@@ -14,10 +14,16 @@ name: "Release on GitHub and Send Email"
 jobs:
   build:
     name: Build & Release
-    runs-on: macos-latest
+    runs-on: ubuntu-latest
     steps:
       - name: Clone repository
         uses: actions/checkout@v4
+
+      - name: Set up Android SDK
+        run: |
+          echo "Installing Android SDK..."
+          sudo apt-get update
+          sudo apt-get install -y aapt
 
       - name: Unzip release.zip file
         run: |
@@ -25,13 +31,24 @@ jobs:
 
       - name: Extract APK Version
         run: |
+          if [[ ! -f "app-release.apk" ]]; then
+            echo "Error: APK file not found!"
+            exit 1
+          fi
+          
           APK_VERSION=$(aapt dump badging app-release.apk | grep versionName | awk -F"'" '{print $4}')
+          
+          if [[ -z "$APK_VERSION" ]]; then
+            echo "Error: Failed to extract APK version!"
+            exit 1
+          fi
+          
           echo "APK_VERSION=$APK_VERSION" >> $GITHUB_ENV
           echo "Extracted APK Version: $APK_VERSION"
 
       - name: Push to release
         uses: ncipollo/release-action@v1
-        with: 
+        with:
           artifacts: "app-release.apk"
           tag: ${{ env.APK_VERSION }}
           token: ${{ secrets.PUBLIC_REPO }}
@@ -50,15 +67,3 @@ jobs:
          git add custom.json
          git commit -m "Add custom.json file with APK version"
          git push
-
-      # - name: Get Release apk and Send Email
-      #   run: | 
-      #     RELEASE_URL="https://github.com/${{ github.repository }}/releases/latest"
-      #     echo "APK Released: $RELEASE_URL"
-      #     curl --location 'https://api.mailgun.net/v3/salaryontime.com/messages' \
-      #       --header 'Authorization: Basic YXBpOjM1NGRkNjZhNjllN2UzZDVjNDc0NzE5NWRiNTVhM2RkLWFjM2Q1Zjc0LWQ3ODEwZWU3' \
-      #       --form 'from="info@salaryontime.com"' \
-      #       --form 'to="arvind@salaryontime.com"' \
-      #       --form 'to="bhavish@salaryontime.com"' \
-      #       --form "text=Latest APK URL: $RELEASE_URL" \
-      #       --form 'subject="Latest Build HRMS app"'
