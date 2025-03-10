@@ -35,7 +35,8 @@ jobs:
 
       - name: Create Custom JSON File
         run: |
-         RELEASE_URL="https://github.com/${{ github.repository }}/releases/download/${{ env.APP_VERSION }}/app-release.apk"
+          RELEASE_URL="https://github.com/${{ github.repository }}/releases/download/${{ env.APP_VERSION }}/app-release.apk"
+          echo "Download URL: $RELEASE_URL"
           echo '{
             "version": "${{ env.APP_VERSION }}",
             "url": "${{ RELEASE_URL }}"
