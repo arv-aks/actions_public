@@ -10,7 +10,7 @@ on:
 permissions:
   contents: write
 
-name: "Release on GitHub and Send Email"
+name: "Release on GitHub and Send Email" 
 jobs:
   build:
     name: Build & Release
